@@ -69,9 +69,9 @@
                     <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-300 transition-all duration-300 group-hover:w-full"></span>
                 </a>
             </nav>
-            <a class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 btn-hover-effect animate__animated animate__fadeInRight animate-pulse-cta" href="#">
-                <i class="fab fa-whatsapp mr-2"></i> WhatsApp US
-            </a>
+            <a class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-full transition-all duration-300 btn-hover-effect animate__animated animate__fadeInRight animate-pulse-cta" href="https://wa.me/237651644490" target="_blank">
+    <i class="fab fa-whatsapp mr-2"></i> WhatsApp US
+</a>
             
             <!-- Mobile menu button -->
             <button class="md:hidden text-white focus:outline-none" id="mobile-menu-button">
@@ -127,13 +127,19 @@
                                 <span class="text-gray-500 text-sm block">I'm a new customer</span>
                             </span>
                         </label>
-                        <label class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
-                            <input type="radio" name="service_type" value="renew" class="h-5 w-5 text-blue-600">
+                        <label id="renewLabel" class="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
+                            <input type="radio" name="service_type" value="renew" class="h-5 w-5 text-blue-600" onclick="toggleUsernameBox(true)">
                             <span class="ml-3 block">
                                 <span class="font-medium">Renew subscription</span>
                                 <span class="text-gray-500 text-sm block">I'm an existing customer</span>
                             </span>
                         </label>
+                        
+                        <!-- Username input field (initially hidden) -->
+                        <div id="usernameBox" class="mt-2 hidden">
+                            <input type="text" name="old_username" placeholder="Enter your old username"
+                                class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500">
+                        </div>
                     </div>
                 </div>
 
@@ -147,22 +153,22 @@
                             <input type="radio" name="subscription_plan" value="1" class="h-5 w-5 text-blue-600">
                             <span class="mt-2 block text-center">
                                 <span class="font-medium">1 Month</span>
-                                <span class="block text-blue-600 font-bold">$15.00</span>
+                                <span class="block text-blue-600 font-bold">$20.00</span>
                             </span>
                         </label>
                         <label class="flex flex-col p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
                             <input type="radio" name="subscription_plan" value="3" class="h-5 w-5 text-blue-600" checked>
                             <span class="mt-2 block text-center">
                                 <span class="font-medium">3 Months</span>
-                                <span class="block text-blue-600 font-bold">$40.00</span>
-                                <span class="text-green-600 text-sm">Save $5.00</span>
+                                <span class="block text-blue-600 font-bold">$50.00</span>
+                                <span class="text-green-600 text-sm">Save $10.00</span>
                             </span>
                         </label>
                         <label class="flex flex-col p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
                             <input type="radio" name="subscription_plan" value="6" class="h-5 w-5 text-blue-600">
                             <span class="mt-2 block text-center">
                                 <span class="font-medium">6 Months</span>
-                                <span class="block text-blue-600 font-bold">$70.00</span>
+                                <span class="block text-blue-600 font-bold">$100.00</span>
                                 <span class="text-green-600 text-sm">Save $20.00</span>
                             </span>
                         </label>
@@ -170,8 +176,8 @@
                             <input type="radio" name="subscription_plan" value="12" class="h-5 w-5 text-blue-600">
                             <span class="mt-2 block text-center">
                                 <span class="font-medium">12 Months</span>
-                                <span class="block text-blue-600 font-bold">$120.00</span>
-                                <span class="text-green-600 text-sm">Save $60.00</span>
+                                <span class="block text-blue-600 font-bold">$240.00</span>
+                                <span class="text-green-600 text-sm">Save $40.00</span>
                             </span>
                         </label>
                     </div>
@@ -249,16 +255,30 @@
                     <div class="mt-6">
                         <label for="phone" class="block text-gray-700 mb-2">Phone/WhatsApp (Optional)</label>
                         <div class="flex">
-                            <div class="flex items-center px-3 border border-gray-300 bg-gray-50 rounded-l-lg">
-                                <img alt="Country flag" class="w-5 h-5" src="https://storage.googleapis.com/a1aa/image/UPpSpN7IVo-pZtT8AO2rBbeyJN9r9x7M3Zs9BECNSyY.jpg">
-                            </div>
-                            <input type="tel" id="phone" name="phone" class="flex-1 min-w-0 p-3 border border-gray-300 rounded-r-lg input-highlight focus:outline-none" placeholder="123-456-7890">
+                            <!-- Country select dropdown -->
+                            <select id="countrySelect" class="p-2 border border-gray-300 rounded-l-lg bg-gray-50 text-sm focus:outline-none">
+                                <option value="+237" data-flag="🇨🇲">🇨🇲 +237 (Cameroon)</option>
+                                <option value="+234" data-flag="🇳🇬">🇳🇬 +234 (Nigeria)</option>
+                                <option value="+1" data-flag="🇺🇸">🇺🇸 +1 (United States)</option>
+    <option value="+44" data-flag="🇬🇧">🇬🇧 +44 (United Kingdom)</option>
+    <option value="+33" data-flag="🇫🇷">🇫🇷 +33 (France)</option>
+    <option value="+49" data-flag="🇩🇪">🇩🇪 +49 (Germany)</option>
+    <option value="+81" data-flag="🇯🇵">🇯🇵 +81 (Japan)</option>
+    <option value="+61" data-flag="🇦🇺">🇦🇺 +61 (Australia)</option>
+    <option value="+86" data-flag="🇨🇳">🇨🇳 +86 (China)</option>
+    <option value="+91" data-flag="🇮🇳">🇮🇳 +91 (India)</option>
+    <option value="+7" data-flag="🇷🇺">🇷🇺 +7 (Russia)</option>
+    <option value="+55" data-flag="🇧🇷">🇧🇷 +55 (Brazil)</option>
+                            </select>
+                    
+                            <!-- Phone number input -->
+                            <input type="tel" id="phone" name="phone" class="flex-1 min-w-0 p-3 border border-gray-300 rounded-r-lg input-highlight focus:outline-none" placeholder="Phone number">
                         </div>
                     </div>
                 </div>
 
                 <!-- Payment Method -->
-                <div class="form-section">
+                <!-- <div class="form-section">
                     <h3 class="text-lg font-medium text-gray-700 mb-4">Payment Method <span class="text-red-500">*</span></h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <button type="button" class="payment-btn p-3 border border-gray-300 rounded-lg flex flex-col items-center active" data-payment="credit">
@@ -279,30 +299,33 @@
                         </button>
                     </div>
                     <input type="hidden" name="payment_method" value="credit">
-                </div>
+                </div> -->
 
                 <!-- Order Summary -->
-                <div class="form-section p-4 border border-gray-300 rounded-lg bg-gray-50">
-                    <h3 class="text-lg font-medium text-gray-700 mb-4">Order Summary</h3>
-                    <div class="flex justify-between mb-2">
-                        <span class="text-gray-600">Subscription:</span>
-                        <span class="font-medium" id="summaryPlan">3 Months Plan</span>
-                    </div>
-                    <div class="flex justify-between mb-2">
-                        <span class="text-gray-600">Package:</span>
-                        <span class="font-medium" id="summaryPackage">Full Package</span>
-                    </div>
-                    <div class="flex justify-between mb-2">
-                        <span class="text-gray-600">Device:</span>
-                        <span class="font-medium" id="summaryDevice">-</span>
-                    </div>
-                    <div class="border-t border-gray-300 my-3"></div>
-                    <div class="flex justify-between text-lg font-bold">
-                        <span>Total:</span>
-                        <span id="summaryTotal">$40.00</span>
-                    </div>
-                </div>
-
+<div class="form-section p-4 border border-gray-300 rounded-lg bg-gray-50">
+    <h3 class="text-lg font-medium text-gray-700 mb-4">Order Summary</h3>
+    <div class="flex justify-between mb-2">
+        <span class="text-gray-600">Service Type:</span>
+        <span class="font-medium" id="summaryService">-</span>
+    </div>
+    <div class="flex justify-between mb-2">
+        <span class="text-gray-600">Subscription:</span>
+        <span class="font-medium" id="summaryPlan">-</span>
+    </div>
+    <div class="flex justify-between mb-2">
+        <span class="text-gray-600">Package:</span>
+        <span class="font-medium" id="summaryPackage">-</span>
+    </div>
+    <div class="flex justify-between mb-2">
+        <span class="text-gray-600">Device:</span>
+        <span class="font-medium" id="summaryDevice">-</span>
+    </div>
+    <div class="border-t border-gray-300 my-3"></div>
+    <div class="flex justify-between text-lg font-bold">
+        <span>Total:</span>
+        <span id="summaryTotal">$0.00</span>
+    </div>
+</div>
                 <!-- Terms and Submit -->
                 <div class="form-section">
                     <div class="flex items-start">
@@ -311,114 +334,301 @@
                             I agree to the <a href="/terms" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="/privacy" class="text-blue-600 hover:underline">Privacy Policy</a> <span class="text-red-500">*</span>
                         </label>
                     </div>
-                    <button type="submit" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition">
-                        Proceed to Payment
-                    </button>
+                    <!-- Proceed Button -->
+<button 
+type="button" 
+onclick="sendToWhatsApp()" 
+class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 flex items-center justify-center space-x-2"
+id="proceedButton"
+>
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+</svg>
+<span>Proceed to Payment</span>
+</button>
+
+<script>
+// Add loading state to button
+document.getElementById('proceedButton').addEventListener('click', function() {
+    const button = this;
+    button.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Processing...
+    `;
+    button.disabled = true;
+    
+    // Call the WhatsApp function after a brief delay to show loading state
+    setTimeout(() => {
+        sendToWhatsApp();
+        // Reset button after 2 seconds
+        setTimeout(() => {
+            button.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span>Proceed to Payment</span>
+            `;
+            button.disabled = false;
+        }, 2000);
+    }, 500);
+});
+</script>
                 </div>
             </form>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer class="bg-blue-900 text-white py-12" id="contact">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div>
-                    <img src="https://storage.googleapis.com/a1aa/image/Fa3LpTtcZQUvvd6l3OoRPiIhorLOVIZRdsNMkvoYooM.jpg" alt="Logo" class="h-10 mb-4">
-                    <p class="mb-4">Premium IPTV service with 20,000+ channels and 40,000+ VODs.</p>
+                    <p class="mb-4">Premium IPTV service with 20,000+ channels and 40,000+ VODs. The best streaming experience at an affordable price.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white hover:text-blue-300 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-blue-300 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-blue-300 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-blue-300 transition-colors duration-300">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
                     </div>
                 </div>
+                
                 <div>
                     <h3 class="text-lg font-bold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="/" class="hover:text-blue-300">Home</a></li>
-                        <li><a href="/channels" class="hover:text-blue-300">Channels</a></li>
-                        <li><a href="/pricing" class="hover:text-blue-300">Pricing</a></li>
-                        <li><a href="/contact" class="hover:text-blue-300">Contact</a></li>
+                        <li><a href="#" class="hover:text-blue-300 transition-colors duration-300">Home</a></li>
+                        <li><a href="#channels" class="hover:text-blue-300 transition-colors duration-300">Channels</a></li>
+                        <li><a href="#pricing" class="hover:text-blue-300 transition-colors duration-300">Pricing</a></li>
+                        <li><a href="#testimonials" class="hover:text-blue-300 transition-colors duration-300">Testimonials</a></li>
+                        <li><a href="#faq" class="hover:text-blue-300 transition-colors duration-300">FAQ</a></li>
                     </ul>
                 </div>
+                
                 <div>
                     <h3 class="text-lg font-bold mb-4">Support</h3>
                     <ul class="space-y-2">
-                        <li><a href="/faq" class="hover:text-blue-300">FAQ</a></li>
-                        <li><a href="/tutorials" class="hover:text-blue-300">Setup Guides</a></li>
-                        <li><a href="/refund-policy" class="hover:text-blue-300">Refund Policy</a></li>
+                        <li><a href="/contact.html" class="hover:text-blue-300 transition-colors duration-300">Contact Us</a></li>
+                        <li><a href="/tutorials.html" class="hover:text-blue-300 transition-colors duration-300">Setup Guides</a></li>
+                        <li><a href="#" class="hover:text-blue-300 transition-colors duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-blue-300 transition-colors duration-300">Terms of Service</a></li>
                     </ul>
                 </div>
+                
                 <div>
-                    <h3 class="text-lg font-bold mb-4">Contact</h3>
-                    <ul class="space-y-2">
+                    <h3 class="text-lg font-bold mb-4">Contact Info</h3>
+                    <ul class="space-y-3">
                         <li class="flex items-start">
                             <i class="fas fa-envelope mt-1 mr-2 text-blue-300"></i>
-                            <span>support@digitalstore.com</span>
+                            <span>ayukblaisius@gmail.com</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fab fa-whatsapp mt-1 mr-2 text-blue-300"></i>
-                            <span>+1 (555) 123-4567</span>
+                            <span>N/A</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-globe mt-1 mr-2 text-blue-300"></i>
+                            <span>24/7 Support Available</span>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>© 2023 Digital Store. All rights reserved.</p>
+            
+            <div class="border-t border-blue-800 pt-8 text-center">
+                <p>© 2025 Digital Store. All rights reserved. Powered by Digital Store</p>
+                <p class="text-sm text-blue-300 mt-2">Disclaimer: Digital Store is not responsible for any copyright issues. All content is provided by third parties.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Update order summary when form changes
-        function updateOrderSummary() {
-            // Get selected values
+        function sendToWhatsApp() {
+            // Replace with your actual WhatsApp number
+            const adminNumber = "237651644490";
+            
+            // Collect personal information
+            const fullName = document.getElementById('full_name').value || "Not provided";
+            const email = document.getElementById('email').value || "Not provided";
+            const countryCode = document.getElementById('countrySelect').value || "";
+            const phone = document.getElementById('phone').value || "Not provided";
+            
+            // Collect service information
+            const serviceType = document.querySelector('input[name="service_type"]:checked')?.value || "Not selected";
+            const oldUsername = document.getElementById("usernameBox").classList.contains("hidden")
+                ? "N/A"
+                : document.querySelector('input[name="old_username"]').value || "Not provided";
+            
+            // Collect subscription details
             const plan = document.querySelector('input[name="subscription_plan"]:checked');
+            const planText = plan ? 
+                (plan.value === '1' ? '1 Month Plan' :
+                 plan.value === '3' ? '3 Months Plan' :
+                 plan.value === '6' ? '6 Months Plan' : '12 Months Plan') : "Not selected";
+            
             const package = document.querySelector('input[name="package"]:checked');
-            const device = document.querySelector('select[name="device_type"]');
-            
-            // Update summary
-            if (plan) {
-                document.getElementById('summaryPlan').textContent = 
-                    plan.value === '1' ? '1 Month Plan' :
-                    plan.value === '3' ? '3 Months Plan' :
-                    plan.value === '6' ? '6 Months Plan' : '12 Months Plan';
-                
-                document.getElementById('summaryTotal').textContent = 
-                    plan.value === '1' ? '$15.00' :
-                    plan.value === '3' ? '$40.00' :
-                    plan.value === '6' ? '$70.00' : '$120.00';
-            }
-            
+            let packageText = "Not selected";
             if (package) {
-                document.getElementById('summaryPackage').textContent = 
-                    package.value === 'full' ? 'Full Package' : 'Custom Package';
+                if (package.value === 'full') {
+                    packageText = 'Full Package';
+                } else {
+                    const customCountries = document.querySelector('select[name="countries"]');
+                    if (customCountries && customCountries.selectedOptions.length > 0) {
+                        const countries = Array.from(customCountries.selectedOptions)
+                            .map(opt => opt.text)
+                            .join(', ');
+                        packageText = `Custom Package (${countries})`;
+                    } else {
+                        packageText = 'Custom Package (No countries selected)';
+                    }
+                }
             }
             
-            if (device && device.value) {
-                document.getElementById('summaryDevice').textContent = 
-                    device.options[device.selectedIndex].text;
-            }
+            const device = document.querySelector('select[name="device_type"]');
+            const deviceText = device && device.value ? device.options[device.selectedIndex].text : "Not selected";
+            
+            const price = plan ? 
+                (plan.value === '1' ? '$20.00' :
+                 plan.value === '3' ? '$50.00' :
+                 plan.value === '6' ? '$100.00' : '$240.00') : "$0.00";
+    
+            // Construct comprehensive message
+            const message = `NEW ORDER REQUEST\n\n` +
+                           `*Personal Information*\n` +
+                           `Name: ${fullName}\n` +
+                           `Email: ${email}\n` +
+                           `Phone/WhatsApp: ${countryCode} ${phone}\n\n` +
+                           `*Service Details*\n` +
+                           `Service Type: ${serviceType}\n` +
+                           `Existing Username: ${oldUsername}\n\n` +
+                           `*Subscription Details*\n` +
+                           `Plan: ${planText}\n` +
+                           `Package: ${packageText}\n` +
+                           `Device: ${deviceText}\n\n` +
+                           `*Order Summary*\n` +
+                           `Total Amount: ${price}\n\n` +
+                           `Please process this order.`;
+    
+            // Encode and send the message
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${adminNumber}?text=${encodedMessage}`, '_blank');
         }
+    </script>
 
-        // Toggle custom package options
-        document.getElementById('custom_package').addEventListener('change', function() {
-            document.getElementById('customPackageOptions').classList.toggle('hidden', !this.checked);
-        });
+<script>
+    // Update order summary when form changes
+    function updateOrderSummary() {
+        // Get selected values
+        const serviceType = document.querySelector('input[name="service_type"]:checked');
+        const plan = document.querySelector('input[name="subscription_plan"]:checked');
+        const package = document.querySelector('input[name="package"]:checked');
+        const device = document.querySelector('select[name="device_type"]');
+        const customCountries = document.querySelector('select[name="countries"]');
+        
+        // Update service type in summary
+        if (serviceType) {
+            const serviceText = serviceType.value === 'new' ? 'New Subscription' : 'Renew Subscription';
+            document.getElementById('summaryService').textContent = serviceText;
+        } else {
+            document.getElementById('summaryService').textContent = '-';
+        }
+        
+        // Update plan in summary
+        if (plan) {
+            const planText = 
+                plan.value === '1' ? '1 Month Plan' :
+                plan.value === '3' ? '3 Months Plan' :
+                plan.value === '6' ? '6 Months Plan' : '12 Months Plan';
+            document.getElementById('summaryPlan').textContent = planText;
+            
+            const price = 
+                plan.value === '1' ? '$20.00' :
+                plan.value === '3' ? '$50.00' :
+                plan.value === '6' ? '$100.00' : '$240.00';
+            document.getElementById('summaryTotal').textContent = price;
+        } else {
+            document.getElementById('summaryPlan').textContent = '-';
+            document.getElementById('summaryTotal').textContent = '$0.00';
+        }
+        
+        // Update package in summary
+        if (package) {
+            if (package.value === 'full') {
+                document.getElementById('summaryPackage').textContent = 'Full Package';
+            } else if (customCountries && customCountries.selectedOptions.length > 0) {
+                const countries = Array.from(customCountries.selectedOptions)
+                    .map(opt => opt.text)
+                    .join(', ');
+                document.getElementById('summaryPackage').textContent = `Custom (${countries})`;
+            } else {
+                document.getElementById('summaryPackage').textContent = 'Custom Package';
+            }
+        } else {
+            document.getElementById('summaryPackage').textContent = '-';
+        }
+        
+        // Update device in summary
+        if (device && device.value) {
+            document.getElementById('summaryDevice').textContent = device.options[device.selectedIndex].text;
+        } else {
+            document.getElementById('summaryDevice').textContent = '-';
+        }
+    }
 
-        // Payment method selection
-        document.querySelectorAll('.payment-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.payment-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                document.querySelector('input[name="payment_method"]').value = this.dataset.payment;
+    // Toggle custom package options
+    document.getElementById('custom_package').addEventListener('change', function() {
+        const customOptions = document.getElementById('customPackageOptions');
+        customOptions.classList.toggle('hidden', !this.checked);
+        updateOrderSummary();
+    });
+
+    // Update summary when any form element changes
+    document.querySelectorAll('input[name="service_type"], input[name="subscription_plan"], input[name="package"], select[name="device_type"], select[name="countries"]').forEach(el => {
+        el.addEventListener('change', updateOrderSummary);
+    });
+
+    // Initialize summary with empty values
+    updateOrderSummary();
+</script>
+
+    <script>
+        // Hide or show the username box when radio is selected
+        function toggleUsernameBox(show) {
+            const box = document.getElementById('usernameBox');
+            box.classList.toggle('hidden', !show);
+        }
+    
+        // Optional: Hide the username box when other radio options are selected
+        document.querySelectorAll('input[name="service_type"]').forEach(input => {
+            input.addEventListener('change', (e) => {
+                toggleUsernameBox(e.target.value === 'renew');
             });
         });
+    </script>
 
-        // Update summary when form changes
-        document.querySelectorAll('input[name="subscription_plan"], input[name="package"], select[name="device_type"]').forEach(el => {
-            el.addEventListener('change', updateOrderSummary);
-        });
+<script>
+    const countrySelect = document.getElementById("countrySelect");
+    const phoneInput = document.getElementById("phone");
+
+    // Optionally prefill the input with the country code when changed
+    countrySelect.addEventListener("change", function () {
+        const selectedCode = this.value;
+        // Optional: Set the phone input value to start with the country code
+        phoneInput.value = selectedCode + " ";
+        phoneInput.focus();
+    });
+</script>
+
+    <script>
+        
 
         // Form submission
         document.getElementById('orderForm').addEventListener('submit', function(e) {
